@@ -1,0 +1,12 @@
+# Sempre HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# O app muda a cada versão: o navegador sempre confere se há versão nova
+<FilesMatch "\.html$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+
+# Piloto fora dos buscadores
+Header set X-Robots-Tag "noindex, nofollow"
