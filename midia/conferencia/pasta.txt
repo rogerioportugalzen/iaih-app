@@ -1,0 +1,22 @@
+app/: 200 4410824
+chewy em app/: 1
+poster em app/: 200
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1793667905591,
+    "data": [
+        {
+            "type": "file",
+            "name": ".htaccess",
+            "size": 343,
+            "hash": "a4a2023bf9cb2c8b1a79e596b81685f0c9b20892a3b01189b3db4098cde3a289"
+        },
+        {
+            "type": "file",
+            "name": "index.html",
+            "size": 4409698,
+            "hash": "53c3d73f759d4544c3e60868f54181263f6775e8898cdaa0e42cced951af2412"
+        }
+    ]
+}
