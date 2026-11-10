@@ -16,4 +16,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           sudo apt-get install -y -qq lftp >/dev/null
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; cls -1 app; rm -r app; cls -1; bye" "$FTP_SERVER"
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -e "set ftp:ssl-force true; set ssl:verify-certificate/D5:F8:12:83:AA:BE:1E:92:51:FF:84:B3:A5:65:D6:51:91:C9:A5:28 no; set ftp:ssl-protect-data true; cls -1 app; rm -r app; cls -1; bye" "$FTP_SERVER"
