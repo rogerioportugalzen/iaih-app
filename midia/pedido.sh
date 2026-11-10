@@ -1,12 +1,24 @@
 #!/bin/bash
-# Pedido 2: cenário da trilha (celular), rodada 14
+# Pedido 3: conferir a trilha no ar (app.iahii.app) com as fontes reais
 set -e
-mkdir -p midia/cenarios /tmp/m
-curl -sSfL -o /tmp/m/loop.mp4 'https://elevenlabsusercontent.com/database/workspace/b3a94b79e3cd49dab5988760a1a297e2/content_generation/UDd801TP3AQpMhcPMB5p/lTROWCjKWVUlhLgxHRzT/content.mp4?Expires=1794340800&KeyName=assets-cdn-key-1&Signature=WiTB7Tb3DblXOQ-2q2PWJ-2DTQU='
-cp /tmp/m/loop.mp4 midia/cenarios/trilha_cel_original.mp4
-ffmpeg -v error -y -i /tmp/m/loop.mp4 -filter_complex "[0:v]split=3[a][b][c];[a]trim=1:7,setpts=PTS-STARTPTS[mid];[b]trim=7:8,setpts=PTS-STARTPTS[tail];[c]trim=0:1,setpts=PTS-STARTPTS[head];[tail][head]xfade=transition=fade:duration=1:offset=0[x];[mid][x]concat=n=2:v=1[out]" -map "[out]" -an -c:v libx264 -crf 14 -preset fast -pix_fmt yuv420p /tmp/m/seam.mp4
-ffmpeg -v error -y -i /tmp/m/seam.mp4 -vf scale=720:1280 -an -c:v libx264 -crf 27 -preset slow -pix_fmt yuv420p -movflags +faststart midia/cenarios/trilha_cel.mp4
-ffmpeg -v error -y -i /tmp/m/seam.mp4 -vf scale=720:1280 -an -c:v libvpx-vp9 -crf 38 -b:v 0 -row-mt 1 -deadline good -cpu-used 2 midia/cenarios/trilha_cel.webm
-ffmpeg -v error -y -i /tmp/m/seam.mp4 -vf "select=eq(n\,0),scale=720:1280" -frames:v 1 -q:v 3 midia/cenarios/trilha_cel_poster.jpg
-ffmpeg -v error -y -i /tmp/m/seam.mp4 -vf "fps=1,scale=270:480,tile=7x1" -frames:v 1 midia/cenarios/trilha_cel_quadros.jpg
-ls -la midia/cenarios
+mkdir -p midia/conferencia
+for f in "" cenarios/trilha_cel.mp4 cenarios/trilha_pc.webm cenarios/trilha_pc_poster.jpg; do echo "$f: $(curl -s -o /dev/null -w '%{http_code} %{content_type} %{size_download}' https://app.iahii.app/$f)"; done | tee midia/conferencia/status.txt
+cd /tmp && npm init -y >/dev/null && npm i -s playwright@1.47.2 >/dev/null && npx playwright install --with-deps chromium >/dev/null 2>&1
+cat > /tmp/t.js <<'JS'
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();
+for(const [w,h,n] of [[390,844,'cel'],[1440,900,'pc']]){
+ const p=await b.newPage({viewport:{width:w,height:h},deviceScaleFactor:2});
+ p.on('pageerror',e=>console.log('ERR',e.message));
+ await p.addInitScript(()=>localStorage.setItem('mdf_app_v01',JSON.stringify({parent:{nome:'R'},consent:{obr:true},pin:'1234',kids:[{id:'k1',apelido:'Bia',ano:'5',av:{skin:3,hair:1,iris:1,top:0,acc:1,strap:0,hairStyle:'rabo',body:'f',topK:'camiseta',glasses:'none',hat:'none'},avSet:true,prog:{},done:[],stickers:[]}],cur:'k1'})));
+ await p.goto('https://app.iahii.app/?v='+Date.now(),{waitUntil:'networkidle'});
+ await p.click('[data-act="pickkid"]');
+ await p.waitForTimeout(3000);
+ await p.evaluate(()=>document.fonts.ready);
+ console.log(n, await p.evaluate(()=>[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family).join(',')));
+ console.log(n,'video', await p.evaluate(()=>[...document.querySelectorAll('.cen video')].map(v=>v.currentSrc+' '+v.readyState+' '+(!v.paused)).join(' | ')));
+ await p.screenshot({path:`${process.env.GITHUB_WORKSPACE}/midia/conferencia/trilha_${n}.png`});
+}
+await b.close();})();
+JS
+node /tmp/t.js | tee -a $GITHUB_WORKSPACE/midia/conferencia/status.txt
