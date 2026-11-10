@@ -1,4 +1,5 @@
-: 000  0
-cenarios/trilha_cel.mp4: 000  0
-cenarios/trilha_pc.webm: 000  0
-cenarios/trilha_pc_poster.jpg: 000  0
+poster: 200
+cel fontes Andika,Bagel Fat One,Bricolage Grotesque,Chewy,Gochi Hand
+cel video trilha_cel.webm pronto=4 tocando=true | trilha_pc.webm pronto=4 tocando=false
+pc fontes Andika,Bagel Fat One,Bricolage Grotesque,Chewy,Gochi Hand
+pc video trilha_cel.webm pronto=4 tocando=false | trilha_pc.webm pronto=4 tocando=true
