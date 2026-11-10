@@ -1,0 +1,8 @@
+== app.iahii.app
+== iahii.app
+== www.iahii.app
+== NS
+app.			900	IN	SOA	ns-tld1.charlestonroadregistry.com. cloud-dns-hostmaster.google.com. 101427 21600 3600 259200 900
+== SOA
+app.			900	IN	SOA	ns-tld1.charlestonroadregistry.com. cloud-dns-hostmaster.google.com. 101427 21600 3600 259200 900
+== whois
