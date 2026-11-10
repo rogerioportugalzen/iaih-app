@@ -1,0 +1,1 @@
+pedido 1: apagar a pasta app/ antiga (10/11/2026)

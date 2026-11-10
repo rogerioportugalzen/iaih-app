@@ -1,0 +1,19 @@
+name: Apagar a cópia velha em app.iaih.app/app
+
+on:
+  push:
+    branches: [midia]
+    paths: [midia/limpar.txt]
+
+jobs:
+  limpar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apagar a pasta app/ do servidor
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sudo apt-get install -y -qq lftp >/dev/null
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; cls -1 app; rm -r app; cls -1; bye" "$FTP_SERVER"
