@@ -1,10 +1,10 @@
 #!/bin/bash
-# Pedido 5: conferir o domínio certo iaih.app
+# Pedido 6: ver se app.iaih.app está em cache
 mkdir -p midia/conferencia
 {
-for d in iaih.app app.iaih.app www.iaih.app; do echo "== $d A: $(dig +short $d A | tr '\n' ' ') CNAME: $(dig +short $d CNAME)"; done
-echo "== NS: $(dig +short iaih.app NS | tr '\n' ' ')"
-for u in https://iaih.app/ https://app.iaih.app/ https://app.iaih.app/cenarios/trilha_cel.mp4; do echo "$u -> $(curl -s -o /dev/null -w '%{http_code} %{content_type} %{size_download}' -L --max-time 20 $u)"; done
-curl -sL --max-time 20 https://app.iaih.app/ | grep -o '<title>[^<]*</title>'
-} > midia/conferencia/dns2.txt 2>&1
+curl -sI "https://app.iaih.app/?x=$RANDOM$RANDOM" | grep -iE "^(http|x-|cache|age|server|last-mod|platform|panel)"
+echo "chewy: $(curl -sL "https://app.iaih.app/index.html?x=$RANDOM" | grep -c Chewy)"
+for f in .ftp-deploy-sync-state.json cenarios/trilha_pc_poster.jpg .htaccess; do echo "$f -> $(curl -s -o /dev/null -w '%{http_code} %{size_download}' "https://app.iaih.app/$f?x=$RANDOM")"; done
+curl -sI "https://app.iaih.app/cenarios/trilha_pc_poster.jpg" | grep -iE "^(http|x-|cache|age)"
+} > midia/conferencia/cache.txt 2>&1
 true
