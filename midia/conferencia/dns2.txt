@@ -1,0 +1,8 @@
+== iaih.app A: 77.37.76.86 148.135.128.26  CNAME: 
+== app.iaih.app A: 147.79.120.182 148.135.128.237  CNAME: 
+== www.iaih.app A: www.iaih.app.cdn.hstgr.net. 148.135.128.53 92.112.198.233  CNAME: www.iaih.app.cdn.hstgr.net.
+== NS: pixel.dns-parking.com. byte.dns-parking.com. 
+https://iaih.app/ -> 200 text/html; charset=UTF-8 16395
+https://app.iaih.app/ -> 200 text/html 4409698
+https://app.iaih.app/cenarios/trilha_cel.mp4 -> 404 text/html 4511
+<title>Iahii</title>
