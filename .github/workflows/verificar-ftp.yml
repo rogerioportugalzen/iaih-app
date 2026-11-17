@@ -1,0 +1,20 @@
+name: Verificar até onde o FTP alcança (só leitura)
+
+on:
+  push:
+    branches: [midia]
+    paths: [midia/verificar-ftp.txt]
+
+jobs:
+  listar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Listar pastas sem alterar nada
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sudo apt-get install -y -qq lftp >/dev/null
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -e "set ftp:ssl-force true; set ssl:verify-certificate/D5:F8:12:83:AA:BE:1E:92:51:FF:84:B3:A5:65:D6:51:91:C9:A5:28 no; set ftp:ssl-protect-data true; echo '== inicial'; pwd; cls -1; echo '== acima'; cd ..; pwd; cls -1; echo '== dois acima'; cd ..; pwd; cls -1; bye" "$FTP_SERVER"
+          echo "Usuario FTP termina com: ${FTP_USERNAME: -12}"
