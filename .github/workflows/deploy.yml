@@ -3,6 +3,7 @@ name: Publicar em app.iaih.app
 on:
   push:
     branches: [main]
+    paths-ignore: ['site/**']
   workflow_dispatch:
 
 concurrency:
@@ -27,3 +28,4 @@ jobs:
             **/.git*/**
             .github/**
             README.md
+            site/**

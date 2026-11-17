@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Iaih · Seu filho sabe quando a IA inventa?</title>
+<meta name="description" content="Missões curtas em que crianças de 10 a 12 anos viram detetives de informação e aprendem a desconfiar, conferir e usar a IA a favor delas. Grátis durante o piloto.">
+<link rel="canonical" href="https://iaih.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://iaih.app/">
+<meta property="og:title" content="Iaih · Seu filho sabe quando a IA inventa?">
+<meta property="og:description" content="Missões curtas com a Duda e o Tagarela para crianças de 10 a 12 anos. Grátis durante o piloto.">
+<meta property="og:image" content="https://iaih.app/a/og.jpg">
+<meta name="theme-color" content="#1A1033">
+<link rel="icon" href="a/icone.svg" type="image/svg+xml">
+
+<script>
+/* Preencher para ativar. Vazio = desligado. */
+window.IAIH={whatsapp:"",ga4:"",pixel:""};
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Gochi+Hand&display=swap">
+<style>
+:root{--ink:#1A1033;--cream:#FFF6E0;--sun:#FFD23F;--pink:#FF3D8B;--lime:#B8F23A;--orange:#FF6B2C;--violet:#7A3DFF;--sky:#5BD1FF;--muted:#4A4060;--paper:#FFF6E0;
+--fd:"Bagel Fat One",system-ui,sans-serif;--fb:"Bricolage Grotesque",system-ui,sans-serif;--fh:"Gochi Hand",cursive;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--fd);font-weight:400;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+.in{width:100%;max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.btn{min-height:60px;border-radius:18px;background:var(--sun);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--fd);font-size:21px;color:var(--ink);text-decoration:none;padding:0 26px;cursor:pointer}
+.btn:active{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.lime{background:var(--lime)}
+.card{background:var(--cream);border:3px solid var(--ink);border-radius:26px;box-shadow:7px 7px 0 var(--ink);padding:22px}
+.cap{font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:1.2px}
+.hand{font-family:var(--fh)}
+section{position:relative}
+/* topo */
+.nav{position:absolute;top:0;left:0;right:0;z-index:4;padding-top:max(14px,env(safe-area-inset-top,0px))}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav a.ent{font:800 15px var(--fb);color:#fff;text-decoration:none;border:2.5px solid #fff;border-radius:14px;padding:8px 14px}
+/* 1 abertura */
+.hero{background:#3a2394 url(a/time_pc.webp) center bottom/cover no-repeat;min-height:min(100svh,860px);display:flex;flex-direction:column;overflow:hidden}
+.hero>.in{flex:1;display:grid;grid-template-rows:auto 1fr;padding-top:110px}
+.hero .txt{text-align:center;max-width:760px;margin:0 auto;color:#fff;display:grid;gap:16px;justify-items:center}
+.hero h1{font-size:clamp(38px,6.2vw,74px);text-shadow:0 4px 0 var(--ink),3px 3px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink)}
+.hero h1 em{font-style:normal;color:var(--sun)}
+.hero .sub{font-size:19px;max-width:560px;font-weight:600;background:rgba(26,16,51,.62);border-radius:16px;padding:10px 16px}
+.hero .mini{font-size:14px;font-weight:800;color:#fff}
+.hero .duo{align-self:end;justify-self:center;width:min(440px,78vw);margin-bottom:clamp(40px,7vh,90px)}
+.pill{display:inline-block;background:var(--lime);color:var(--ink);border:2.5px solid var(--ink);border-radius:99px;padding:4px 14px;box-shadow:3px 3px 0 var(--ink)}
+/* 2 problema */
+.prob{background:var(--paper);padding:90px 0}
+.prob .in{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.prob h2{font-size:clamp(32px,4.4vw,52px)}
+.prob .lead{font-size:19px;margin-top:16px;max-width:52ch;color:var(--muted)}
+.chat{display:grid;gap:14px;position:relative}
+.bq{background:#fff;border:3px solid var(--ink);border-radius:20px;padding:12px 16px;box-shadow:4px 4px 0 var(--ink);max-width:84%}
+.bq.r{justify-self:end;background:var(--ink);color:#fff;display:flex;gap:12px;align-items:flex-start}
+.bq.r img{width:46px;height:46px;border-radius:50%;background:var(--lime);border:2px solid #fff;flex-shrink:0}
+.bq .cap{font-size:11px;opacity:.8;display:block;margin-bottom:2px}
+.carimbo{position:absolute;right:-6px;bottom:-26px;font-family:var(--fd);font-size:30px;color:var(--pink);border:4px solid var(--pink);border-radius:12px;padding:2px 14px;transform:rotate(-9deg);background:rgba(255,246,224,.85);letter-spacing:1px}
+/* 3 como funciona */
+.como{background:var(--violet);color:#fff;padding:90px 0;overflow:hidden}
+.como h2{font-size:clamp(32px,4.4vw,52px);text-align:center}
+.trilha{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:46px;position:relative}
+.trilha:before{content:"";position:absolute;left:8%;right:8%;top:38px;border-top:5px dashed rgba(255,255,255,.55);z-index:0}
+.passo{position:relative;z-index:1;color:var(--ink);text-align:center;padding-top:0}
+.passo .n{width:76px;height:76px;margin:0 auto -24px;border-radius:50%;background:var(--sun);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font:400 36px/70px var(--fd);position:relative;z-index:2}
+.passo .card{padding-top:38px;min-height:190px}
+.passo:nth-child(2) .card{transform:rotate(1.2deg)}.passo:nth-child(3) .card{transform:rotate(-1deg)}
+.passo h3{font-size:25px;margin-bottom:8px}
+.passo p{color:var(--muted);font-size:16px}
+/* 4 missão */
+.missao{background:var(--lime);padding:90px 0;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.missao .in{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+.cel{width:300px;max-width:78vw;aspect-ratio:9/16;border:6px solid var(--ink);border-radius:36px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);position:relative;background:#3a2394;transform:rotate(-2deg)}
+.cel video{width:100%;height:100%;object-fit:cover;display:block}
+.cel .leg{position:absolute;left:10px;right:10px;bottom:12px;background:rgba(26,16,51,.85);color:#fff;border-radius:14px;padding:8px 10px;font:600 13px/1.3 var(--fb);text-align:center}
+.cel .leg b{display:block;color:var(--sun);font:400 12px var(--fd)}
+.missao h2{font-size:clamp(32px,4.4vw,52px)}
+.lista{display:grid;gap:12px;margin:22px 0 26px;padding:0;list-style:none}
+.lista li{display:flex;gap:12px;align-items:flex-start;font-size:18px;font-weight:600}
+.lista li span{flex-shrink:0;width:34px;height:34px;border-radius:10px;border:2.5px solid var(--ink);background:#fff;font:400 18px/29px var(--fd);text-align:center}
+/* 5 pais */
+.pais{background:var(--paper);padding:90px 0}
+.pais h2{font-size:clamp(32px,4.4vw,52px);max-width:16ch}
+.grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:40px}
+.selo{background:#fff;border:3px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--ink);padding:18px;display:grid;gap:8px;align-content:start}
+.selo .ic{width:52px;height:52px;border-radius:16px;border:3px solid var(--ink);display:grid;place-items:center;font:400 24px var(--fd)}
+.selo h3{font-size:21px}
+.selo p{font-size:15px;color:var(--muted)}
+/* 6 escolas */
+.esc{background:var(--ink);color:#fff;padding:80px 0}
+.esc .in{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+.esc h2{font-size:clamp(30px,4vw,46px);color:var(--sun)}
+.esc p{font-size:18px;margin-top:12px;max-width:56ch;color:#e6e0f7}
+/* 7 perguntas */
+.faq{background:var(--paper);padding:90px 0}
+.faq h2{font-size:clamp(32px,4.4vw,52px);text-align:center;margin-bottom:36px}
+.qs{display:grid;gap:14px;max-width:780px;margin:0 auto}
+details{background:#fff;border:3px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink)}
+summary{list-style:none;cursor:pointer;padding:16px 20px;font:800 18px var(--fb);display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font:400 26px/1 var(--fd)}
+details[open] summary:after{content:"–"}
+details p{padding:0 20px 18px;color:var(--muted)}
+/* 8 chamada final */
+.fim{background:var(--sun);border-top:3px solid var(--ink);padding:70px 0 0;overflow:hidden}
+.fim .in{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+.fim h2{font-size:clamp(34px,5vw,60px)}
+.fim .tx{padding-bottom:70px;display:grid;gap:18px;justify-items:start}
+.fim img{width:330px;max-width:60vw;display:block}
+footer{background:var(--ink);color:#cfc6ea;padding:34px 0 max(34px,env(safe-area-inset-bottom,0px));font-size:14px}
+footer .in{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+footer a{color:#fff}
+@media (max-width:860px){
+ .hero{background-image:url(a/time_cel.webp)}
+ .hero>.in{padding-top:128px}.hero h1{font-size:clamp(32px,9.4vw,44px)}.nav .logo{height:34px!important}
+ .prob .in,.missao .in,.esc .in,.fim .in{grid-template-columns:1fr}
+ .missao .in{justify-items:center}
+ .trilha{grid-template-columns:1fr;gap:34px}.trilha:before{left:50%;right:auto;top:0;bottom:0;border-top:0;border-left:5px dashed rgba(255,255,255,.55)}
+ .grade{grid-template-columns:1fr 1fr}
+ .fim img{justify-self:center}
+ .fim .tx{padding-bottom:0}
+ .nota{font-size:17px}
+}
+@media (max-width:520px){.grade{grid-template-columns:1fr}.btn{width:100%;font-size:19px}.hero .sub{font-size:17px}}
+.cookies{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:30;max-width:560px;margin:0 auto;background:var(--cream);border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);padding:14px 16px;display:grid;gap:10px}.cookies p{font-weight:600}.cookies div{display:flex;gap:10px}.cookies .btn{min-height:46px;font-size:17px;padding:0 18px;flex:1}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+
+<section class="hero">
+    <div class="nav"><div class="in"><svg class="logo " role="img" aria-label="iaih?" viewBox="192.0 156.5 210.6 107.5" style="height:44px;width:auto"><g fill="#FFFFFF"><path d="M 217.38 164.81 C 214.85 163.28 211.56 162.51 207.51 162.51 C 203.53 162.51 200.28 163.30 197.76 164.87 C 195.23 166.44 193.97 168.76 193.97 171.83 C 193.97 174.89 195.23 177.23 197.76 178.84 C 200.28 180.46 203.53 181.26 207.51 181.26 C 211.56 181.26 214.85 180.48 217.38 178.91 C 219.91 177.33 221.17 174.98 221.17 171.83 C 221.17 168.68 219.91 166.34 217.38 164.81"/><path d="M 197.32 249.58 L 217.69 249.58 L 217.69 186.36 L 197.32 186.36 Z M 197.32 249.58"/><path d="M 269.24 187.66 C 266.17 185.30 262.12 184.12 257.07 184.12 C 252.84 184.12 248.33 184.91 243.53 186.48 C 238.73 188.06 234.83 190.13 231.85 192.69 L 226.64 214.93 C 229.94 212.11 233.71 209.46 237.94 206.98 C 242.16 204.5 245.80 203.25 248.87 203.25 C 252.84 203.25 254.83 205.82 254.83 210.95 C 254.83 214.43 254.50 219.65 253.84 226.60 C 250.94 231.49 248.21 233.93 245.64 233.93 C 244.31 233.93 243.32 233.15 242.66 231.57 C 242 230.00 241.66 228.47 241.66 226.98 C 241.66 223.91 242.68 220.81 244.71 217.66 C 246.74 214.51 249.12 211.87 251.85 209.71 L 251.85 205.86 C 247.96 206.85 244.31 208.14 240.92 209.71 C 237.52 211.28 234.28 213.23 231.17 215.55 C 228.06 217.87 225.60 220.70 223.78 224.06 C 221.96 227.41 221.05 231.12 221.05 235.17 C 221.05 240.39 222.41 244.64 225.14 247.91 C 227.88 251.17 231.81 252.81 236.94 252.81 C 240.67 252.81 244.07 251.80 247.13 249.77 C 250.19 247.74 252.39 244.99 253.71 241.51 C 253.71 241.76 253.55 242.90 253.22 244.92 C 252.89 246.96 252.68 248.51 252.60 249.58 L 273.83 249.58 L 273.83 198.53 C 273.83 193.65 272.30 190.02 269.24 187.66"/><path d="M 362.82 230.58 C 364.80 228.59 367.20 227.60 370.02 227.60 C 372.83 227.60 375.24 228.59 377.22 230.58 C 379.21 232.56 380.20 234.97 380.20 237.78 C 380.20 240.60 379.21 243.00 377.22 244.98 C 375.24 246.97 372.83 247.96 370.02 247.96 C 367.20 247.96 364.80 246.97 362.82 244.98 C 360.83 243.00 359.83 240.60 359.83 237.78 C 359.83 234.97 360.83 232.56 362.82 230.58 M 400.57 184.74 C 400.57 188.14 399.97 191.22 398.77 194 C 397.57 196.77 396.04 198.96 394.18 200.58 C 392.32 202.19 390.33 203.81 388.21 205.42 C 386.10 207.04 384.12 208.47 382.25 209.71 C 380.39 210.95 378.86 212.55 377.66 214.49 C 376.46 216.44 375.86 218.61 375.86 221.01 L 364.18 221.01 C 364.18 216.96 364.84 213.33 366.17 210.14 C 367.49 206.96 368.94 204.45 370.51 202.63 C 372.09 200.81 373.54 198.30 374.86 195.11 C 376.19 191.92 376.85 188.34 376.85 184.37 C 376.85 180.98 376.35 178.47 375.36 176.85 C 374.37 175.24 372.63 174.43 370.14 174.43 C 365.17 174.43 362.69 180.32 362.69 192.07 L 341.08 185.36 C 341.08 176.67 343.62 170.02 348.71 165.43 C 353.81 160.83 361.20 158.53 370.89 158.53 C 390.68 158.53 400.57 167.27 400.57 184.74"/></g><g fill="#FFFFFF"><path d="M 280.05 262.00 L 300.42 262.00 L 300.42 198.78 L 280.05 198.78 Z M 280.05 262.00"/><path d="M 300.10 177.23 C 297.58 175.70 294.29 174.93 290.23 174.93 C 286.26 174.93 283.00 175.72 280.48 177.29 C 277.95 178.87 276.69 181.19 276.69 184.25 C 276.69 187.31 277.95 189.65 280.48 191.26 C 283.00 192.88 286.26 193.69 290.23 193.69 C 294.29 193.69 297.58 192.90 300.10 191.33 C 302.63 189.76 303.89 187.39 303.89 184.25 C 303.89 181.10 302.63 178.76 300.10 177.23"/><path d="M 324.32 230.02 C 324.03 228.16 323.81 226.44 323.64 224.87 C 323.48 223.29 323.39 221.84 323.39 220.52 C 323.39 218.70 323.62 216.19 324.08 213.00 C 324.53 209.82 324.80 207.64 324.89 206.48 L 327.87 178.66 L 307.37 178.66 L 307.37 262.00 L 327.87 262.00 L 324.89 234.30 C 324.80 233.31 324.61 231.88 324.32 230.02"/><path d="M 353.51 199.77 C 351.65 197.62 348.98 196.55 345.50 196.55 C 341.11 196.55 337.41 198.24 334.39 201.64 C 331.36 205.03 329.29 208.80 328.17 212.94 C 327.06 217.08 326.46 221.30 326.37 225.61 L 330.72 225.61 C 330.72 224.53 330.97 223.15 331.47 221.45 C 331.96 219.75 332.58 218.90 333.33 218.90 C 334.16 218.90 334.57 220.31 334.57 223.12 L 334.57 262.00 L 356.19 262.00 L 356.19 248.59 L 356.31 221.76 L 356.31 208.34 C 356.31 204.78 355.38 201.93 353.51 199.77"/></g></svg><a class="ent" href="https://app.iaih.app/" data-ev="entrar">Já tenho conta</a></div></div>
+  <div class="in">
+    <div class="txt">
+      <span class="pill cap">Para crianças de 10 a 12 anos</span>
+      <h1>A IA responde tudo.<br><em>Seu filho sabe quando ela inventa?</em></h1>
+      <p class="sub">No Iaih a criança vira detetive de informações: conversa com a Duda e o Tagarela, joga missões curtas e aprende a desconfiar, conferir e usar a IA a favor dela.</p>
+      <a class="btn" href="https://app.iaih.app/" data-ev="cta_hero">Experimente grátis a primeira missão →</a>
+      <span class="mini">Grátis durante o piloto · celular ou computador · sem anúncios</span>
+    </div>
+    <img class="duo" src="a/duda_tag.webp" alt="Duda, a coruja detetive, e Tagarela, o papagaio robô">
+  </div>
+</section>
+
+<section class="prob">
+    <div class="in">
+    <div>
+      <span class="cap" style="color:var(--violet)">O que quase ninguém ensina</span>
+      <h2 style="margin-top:10px">A IA erra com a mesma confiança com que acerta.</h2>
+      <p class="lead">As crianças já usam IA para tarefa e curiosidade. O que falta é aprender que ela pode inventar, e que dá para descobrir quando isso acontece. É isso que o Iaih treina, brincando.</p>
+    </div>
+    <div class="chat">
+      <div class="bq"><span class="cap">Alguém perguntou</span>Quem foi o primeiro brasileiro no espaço?</div>
+      <div class="bq r"><img src="a/tag_head.webp" alt=""><div><span class="cap">Tagarela respondeu</span>Foi o astronauta Carlos Mendes, na missão de 1998!</div></div>
+      <span class="carimbo">INVENÇÃO</span>
+    </div>
+  </div>
+</section>
+
+<section class="como">
+    <div class="in">
+    <h2>Começa em 2 minutos</h2>
+    <div class="trilha">
+      <div class="passo"><div class="n">1</div><div class="card"><h3>Você cria a conta</h3><p>Cadastro do responsável e um PIN só seu. Nada de dados desnecessários da criança.</p></div></div>
+      <div class="passo"><div class="n">2</div><div class="card"><h3>A criança monta o Pixel</h3><p>O robô que representa ela no mundo do Iaih, com cores e acessórios escolhidos por ela.</p></div></div>
+      <div class="passo"><div class="n">3</div><div class="card"><h3>Missões de 10 minutos</h3><p>Conversa, atividade e minijogo de detetive. Cada missão vale uma figurinha no álbum.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="missao">
+    <div class="in">
+    <div class="cel"><video src="a/v1.mp4" poster="a/v1_poster.jpg" playsinline controls preload="none"></video></div>
+    <div>
+      <span class="cap">Missão 1</span>
+      <h2 style="margin-top:8px">Verdade ou invenção?</h2>
+      <ul class="lista">
+        <li><span>1</span>Uma conversa em vídeo com a Duda e o Tagarela, em que a criança escolhe o que responder.</li>
+        <li><span>2</span>A roleta das palavras, para ver como a IA monta uma resposta por dentro.</li>
+        <li><span>3</span>Um minijogo de detetive: abrir pistas e carimbar verdade ou invenção.</li>
+      </ul>
+      <a class="btn" href="https://app.iaih.app/" data-ev="cta_missao" style="background:#fff">Jogar a missão 1 agora →</a>
+    </div>
+  </div>
+</section>
+
+<section class="pais">
+    <div class="in">
+    <span class="cap" style="color:var(--violet)">Para você ficar tranquilo</span>
+    <h2 style="margin-top:10px">Feito para a criança jogar e para você acompanhar.</h2>
+    <div class="grade">
+      <div class="selo"><div class="ic" style="background:var(--sun)">10</div><h3>Missões curtas</h3><p>Cerca de 10 minutos cada. Cabe no fim da tarde, sem virar horas de tela.</p></div>
+      <div class="selo" style="transform:rotate(-1deg)"><div class="ic" style="background:var(--lime);font-size:15px">PIN</div><h3>Área do responsável</h3><p>Protegida por PIN. Você vê o progresso e cuida da conta.</p></div>
+      <div class="selo" style="transform:rotate(1deg)"><div class="ic" style="background:var(--sky)">0</div><h3>Sem anúncios</h3><p>Nada de propaganda nem conversa com estranhos.</p></div>
+      <div class="selo"><div class="ic" style="background:var(--pink);color:#fff;font-size:13px">LGPD</div><h3>Dados protegidos</h3><p>Seguimos a LGPD e pedimos só o necessário.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="esc">
+    <div class="in">
+    <div><h2>Leve o Iaih para a sua escola</h2><p>Alfabetização em IA para o 5º ao 7º ano, com missões prontas para a sala de aula. Fale com a gente e receba uma apresentação.</p></div>
+    <a class="btn lime" id="wa" href="#" data-ev="escolas_whatsapp" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+  </div>
+</section>
+
+<section class="faq">
+    <div class="in">
+    <h2>Perguntas dos pais</h2>
+    <div class="qs">
+      <details open><summary>Para qual idade é o Iaih?</summary><p>Para crianças de 10 a 12 anos, do 5º ao 7º ano.</p></details>
+      <details><summary>Quanto custa?</summary><p>Durante o piloto é grátis. Avisaremos antes de qualquer cobrança.</p></details>
+      <details><summary>Precisa instalar alguma coisa?</summary><p>Não. Funciona no navegador do celular, do tablet ou do computador.</p></details>
+      <details><summary>A criança conversa com uma IA de verdade?</summary><p>Não. As conversas são roteirizadas e seguras. Ela aprende como a IA funciona sem ficar exposta a ela.</p></details>
+      <details><summary>Quanto tempo leva cada missão?</summary><p>Cerca de 10 minutos.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="fim">
+    <div class="in">
+    <div class="tx"><h2>Pronto para a primeira missão?</h2><a class="btn" href="https://app.iaih.app/" data-ev="cta_final" style="background:#fff">Criar conta grátis →</a></div>
+    <img src="a/duda_acena.webp" alt="Duda acenando">
+  </div>
+</section>
+<footer><div class="in"><svg class="logo " role="img" aria-label="iaih?" viewBox="192.0 156.5 210.6 107.5" style="height:36px;width:auto"><g fill="#F79026"><path d="M 217.38 164.81 C 214.85 163.28 211.56 162.51 207.51 162.51 C 203.53 162.51 200.28 163.30 197.76 164.87 C 195.23 166.44 193.97 168.76 193.97 171.83 C 193.97 174.89 195.23 177.23 197.76 178.84 C 200.28 180.46 203.53 181.26 207.51 181.26 C 211.56 181.26 214.85 180.48 217.38 178.91 C 219.91 177.33 221.17 174.98 221.17 171.83 C 221.17 168.68 219.91 166.34 217.38 164.81"/><path d="M 197.32 249.58 L 217.69 249.58 L 217.69 186.36 L 197.32 186.36 Z M 197.32 249.58"/><path d="M 269.24 187.66 C 266.17 185.30 262.12 184.12 257.07 184.12 C 252.84 184.12 248.33 184.91 243.53 186.48 C 238.73 188.06 234.83 190.13 231.85 192.69 L 226.64 214.93 C 229.94 212.11 233.71 209.46 237.94 206.98 C 242.16 204.5 245.80 203.25 248.87 203.25 C 252.84 203.25 254.83 205.82 254.83 210.95 C 254.83 214.43 254.50 219.65 253.84 226.60 C 250.94 231.49 248.21 233.93 245.64 233.93 C 244.31 233.93 243.32 233.15 242.66 231.57 C 242 230.00 241.66 228.47 241.66 226.98 C 241.66 223.91 242.68 220.81 244.71 217.66 C 246.74 214.51 249.12 211.87 251.85 209.71 L 251.85 205.86 C 247.96 206.85 244.31 208.14 240.92 209.71 C 237.52 211.28 234.28 213.23 231.17 215.55 C 228.06 217.87 225.60 220.70 223.78 224.06 C 221.96 227.41 221.05 231.12 221.05 235.17 C 221.05 240.39 222.41 244.64 225.14 247.91 C 227.88 251.17 231.81 252.81 236.94 252.81 C 240.67 252.81 244.07 251.80 247.13 249.77 C 250.19 247.74 252.39 244.99 253.71 241.51 C 253.71 241.76 253.55 242.90 253.22 244.92 C 252.89 246.96 252.68 248.51 252.60 249.58 L 273.83 249.58 L 273.83 198.53 C 273.83 193.65 272.30 190.02 269.24 187.66"/><path d="M 362.82 230.58 C 364.80 228.59 367.20 227.60 370.02 227.60 C 372.83 227.60 375.24 228.59 377.22 230.58 C 379.21 232.56 380.20 234.97 380.20 237.78 C 380.20 240.60 379.21 243.00 377.22 244.98 C 375.24 246.97 372.83 247.96 370.02 247.96 C 367.20 247.96 364.80 246.97 362.82 244.98 C 360.83 243.00 359.83 240.60 359.83 237.78 C 359.83 234.97 360.83 232.56 362.82 230.58 M 400.57 184.74 C 400.57 188.14 399.97 191.22 398.77 194 C 397.57 196.77 396.04 198.96 394.18 200.58 C 392.32 202.19 390.33 203.81 388.21 205.42 C 386.10 207.04 384.12 208.47 382.25 209.71 C 380.39 210.95 378.86 212.55 377.66 214.49 C 376.46 216.44 375.86 218.61 375.86 221.01 L 364.18 221.01 C 364.18 216.96 364.84 213.33 366.17 210.14 C 367.49 206.96 368.94 204.45 370.51 202.63 C 372.09 200.81 373.54 198.30 374.86 195.11 C 376.19 191.92 376.85 188.34 376.85 184.37 C 376.85 180.98 376.35 178.47 375.36 176.85 C 374.37 175.24 372.63 174.43 370.14 174.43 C 365.17 174.43 362.69 180.32 362.69 192.07 L 341.08 185.36 C 341.08 176.67 343.62 170.02 348.71 165.43 C 353.81 160.83 361.20 158.53 370.89 158.53 C 390.68 158.53 400.57 167.27 400.57 184.74"/></g><g fill="#36953B"><path d="M 280.05 262.00 L 300.42 262.00 L 300.42 198.78 L 280.05 198.78 Z M 280.05 262.00"/><path d="M 300.10 177.23 C 297.58 175.70 294.29 174.93 290.23 174.93 C 286.26 174.93 283.00 175.72 280.48 177.29 C 277.95 178.87 276.69 181.19 276.69 184.25 C 276.69 187.31 277.95 189.65 280.48 191.26 C 283.00 192.88 286.26 193.69 290.23 193.69 C 294.29 193.69 297.58 192.90 300.10 191.33 C 302.63 189.76 303.89 187.39 303.89 184.25 C 303.89 181.10 302.63 178.76 300.10 177.23"/><path d="M 324.32 230.02 C 324.03 228.16 323.81 226.44 323.64 224.87 C 323.48 223.29 323.39 221.84 323.39 220.52 C 323.39 218.70 323.62 216.19 324.08 213.00 C 324.53 209.82 324.80 207.64 324.89 206.48 L 327.87 178.66 L 307.37 178.66 L 307.37 262.00 L 327.87 262.00 L 324.89 234.30 C 324.80 233.31 324.61 231.88 324.32 230.02"/><path d="M 353.51 199.77 C 351.65 197.62 348.98 196.55 345.50 196.55 C 341.11 196.55 337.41 198.24 334.39 201.64 C 331.36 205.03 329.29 208.80 328.17 212.94 C 327.06 217.08 326.46 221.30 326.37 225.61 L 330.72 225.61 C 330.72 224.53 330.97 223.15 331.47 221.45 C 331.96 219.75 332.58 218.90 333.33 218.90 C 334.16 218.90 334.57 220.31 334.57 223.12 L 334.57 262.00 L 356.19 262.00 L 356.19 248.59 L 356.31 221.76 L 356.31 208.34 C 356.31 204.78 355.38 201.93 353.51 199.77"/></g></svg><span>© 2026 Iaih · Alfabetização em IA para crianças</span></div></footer>
+
+
+
+<div id="cookies" class="cookies" hidden><p>Usamos cookies para medir as visitas e melhorar o Iaih.</p><div><button type="button" class="btn" id="ck-ok">Aceitar</button><button type="button" class="btn" id="ck-no" style="background:#fff">Recusar</button></div></div>
+<script>
+(function(){var C=window.IAIH||{};
+var wa=document.getElementById('wa');
+if(C.whatsapp){wa.href='https://wa.me/'+C.whatsapp.replace(/\D/g,'')+'?text='+encodeURIComponent('Olá! Sou de uma escola e quero conhecer o Iaih.')}else{wa.removeAttribute('target');wa.href='#';wa.addEventListener('click',function(e){e.preventDefault()});wa.textContent='WhatsApp em breve'}
+function ev(n){try{window.gtag&&gtag('event',n);window.fbq&&fbq('trackCustom',n);if(window.fbq&&/^cta|entrar/.test(n))fbq('track','Lead')}catch(e){}}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-ev]');a&&ev(a.dataset.ev)});
+function liga(){
+ if(C.ga4){var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id='+C.ga4;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',C.ga4)}
+ if(C.pixel){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',C.pixel);fbq('track','PageView')}
+}
+if(C.ga4||C.pixel){var k;try{k=localStorage.getItem('iaih_ck')}catch(e){}
+ if(k==='1')liga();else if(k!=='0'){var bx=document.getElementById('cookies');bx.hidden=false;
+  document.getElementById('ck-ok').onclick=function(){try{localStorage.setItem('iaih_ck','1')}catch(e){};bx.hidden=true;liga()};
+  document.getElementById('ck-no').onclick=function(){try{localStorage.setItem('iaih_ck','0')}catch(e){};bx.hidden=true}}}
+})();
+</script>
+</html>
