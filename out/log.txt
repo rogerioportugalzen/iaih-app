@@ -1,0 +1,13 @@
+login SBU: null
+tela apos login:  4/4 Crie seu PINde responsável Quatro números para abrir a área do responsável. Assim a criança joga sem mexer nas configurações. 123456789C0← Na versão final,
+responsavel no estado: {"nome":"Teste E2E","email":"e2e.app.1795045886693@iaih.app"}
+console Failed to load resource: the server responded with a status of 400 ()
+estado no banco: invalid input syntax for type uuid: "undefined"
+console Failed to load resource: the server responded with a status of 400 ()
+perfil: {"code":"22P02","details":null,"hint":null,"message":"invalid input syntax for type uuid: \"undefined\""}
+outros perfis visiveis (deve ser 1): 1
+pedidos visiveis p/ familia (deve ser 0): 0
+outro aparelho e2e recuperado: ok
+reload mantem sessao: true ok
+espera tela: Pedido recebido!Obrigado por querer ajudar a construir o Iaih. Assim que o seu código for liberado, a gente avisa por WhatsApp ou e-mail.Voltar
+admin: Painel do Iaih E-mail Senha Entrar Primeiro acesso: criar minha senha Só o e-mail do administrador entra aqui.
