@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel · Iaih</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--ink:#1A1033;--cream:#FFF6E0;--sun:#FFD23F;--pink:#FF3D8B;--lime:#B8F23A;--violet:#7A3DFF;--sky:#5BD1FF;--muted:#4A4060;--ok:#1F7A3A;--no:#B42318;
+--fd:"Bagel Fat One",system-ui,sans-serif;--fb:"Bricolage Grotesque",system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--fb);font-size:15px;line-height:1.4}
+.in{max-width:1100px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-left,0px)) 60px max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--fd);font-weight:400;margin:0}
+h1{font-size:30px}h2{font-size:22px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--ink);padding:16px}
+.btn{min-height:44px;border-radius:14px;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);background:var(--sun);font:400 16px var(--fd);color:var(--ink);padding:0 16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn.sm{min-height:36px;font-size:14px;padding:0 12px;box-shadow:2px 2px 0 var(--ink)}
+.btn.lime{background:var(--lime)}.btn.w{background:#fff}.btn.no{background:#fff;color:var(--no);border-color:var(--no);box-shadow:2px 2px 0 var(--no)}
+.btn:disabled{opacity:.5;cursor:default}
+input{font:inherit;min-height:44px;border:2.5px solid var(--ink);border-radius:12px;padding:0 12px;width:100%;background:#fff}
+label{font-weight:800;font-size:13px;display:grid;gap:4px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.kpi{border:3px solid var(--ink);border-radius:16px;padding:10px 14px;background:#fff}
+.kpi b{display:block;font:400 30px var(--fd)}
+.kpi span{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{min-height:40px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;font-weight:800;padding:0 16px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--ink);color:#fff}
+.lista{display:grid;gap:12px}
+.item{background:#fff;border:2.5px solid var(--ink);border-radius:16px;padding:12px 14px;display:grid;gap:8px}
+.item .l1{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.item .nm{font-weight:800;font-size:17px}
+.mut{color:var(--muted);font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:99px;padding:2px 10px;border:2px solid var(--ink)}
+.t-novo{background:var(--sun)}.t-aprovado,.t-usado{background:var(--lime)}.t-recusado{background:#fff;color:var(--no);border-color:var(--no)}.t-livre{background:#fff}.t-reservado{background:var(--sky)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.cod{font:800 18px/1 ui-monospace,Menlo,monospace;letter-spacing:1px;background:var(--cream);border:2px dashed var(--ink);border-radius:10px;padding:8px 12px;display:inline-block}
+table{border-collapse:collapse;width:100%;background:#fff;border:2.5px solid var(--ink);border-radius:14px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #e6dcc4;font-size:14px;vertical-align:top}
+th{background:var(--ink);color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.tw{overflow-x:auto}
+.err{color:var(--no);font-weight:700}
+.vazio{padding:24px;text-align:center;color:var(--muted)}
+#login{max-width:420px;margin:60px auto;display:grid;gap:14px}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="in" id="app"><p class="vazio">Carregando…</p></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const SB=supabase.createClient("https://kkxcuynpfxextptvntvn.supabase.co","sb_publishable_Xy1bZLaYTpoBFDyet2LFWw_mt1Mf8rr");
+const APP="https://app.iaih.app/";
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dt=v=>v?new Date(v).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"";
+let D={pedidos:[],codigos:[],perfis:[],estado:[]},aba="pedidos",ultimo=null;
+
+function telaLogin(msg){
+  $("#app").innerHTML=`<form id="login" class="card"><h1>Painel do Iaih</h1>
+  <label>E-mail<input id="lem" type="email" autocomplete="email"></label>
+  <label>Senha<input id="lpw" type="password" autocomplete="current-password"></label>
+  <p class="err" id="lerr" ${msg?"":"hidden"}>${esc(msg||"")}</p>
+  <button class="btn" type="submit">Entrar</button>
+  <button class="btn w sm" type="button" id="lnovo">Primeiro acesso: criar minha senha</button>
+  <p class="mut">Só o e-mail do administrador entra aqui.</p></form>`;
+  const err=m=>{$("#lerr").textContent=m;$("#lerr").hidden=false};
+  $("#login").onsubmit=async e=>{e.preventDefault();const r=await SB.auth.signInWithPassword({email:$("#lem").value.trim(),password:$("#lpw").value});
+    if(r.error)return err("E-mail ou senha não conferem.");iniciar()};
+  $("#lnovo").onclick=async()=>{const em=$("#lem").value.trim(),pw=$("#lpw").value;
+    if(!em||pw.length<8)return err("Preencha o e-mail e uma senha com pelo menos 8 caracteres.");
+    const r=await SB.auth.signUp({email:em,password:pw,options:{data:{nome:"Rogerio"}}});
+    if(r.error)return err(/codigo|Database/i.test(r.error.message)?"Este e-mail não é de administrador.":r.error.message);
+    if(!r.data.session)return err("Acesso criado. Confirme pelo link no seu e-mail e depois entre.");iniciar()};
+}
+
+async function carregar(){
+  const [p,c,f,e]=await Promise.all([
+    SB.from("pedidos").select("*").order("criado_em",{ascending:false}),
+    SB.from("codigos_beta").select("*").order("codigo"),
+    SB.from("perfis").select("*").order("criado_em",{ascending:false}),
+    SB.from("estado").select("user_id,dados,atualizado_em")]);
+  for(const r of [p,c,f,e]) if(r.error) throw r.error;
+  D={pedidos:p.data,codigos:c.data,perfis:f.data,estado:e.data};
+}
+
+function msgCodigo(nome,cod){return `Olá, ${nome.split(" ")[0]}! Seu código de beta tester do Iaih é ${cod}. Crie a conta em ${APP} usando esse código no cadastro. Obrigado por ajudar a construir o Iaih!`}
+function zap(n){n=String(n||"").replace(/\D/g,"");if(n&&n.length<=11)n="55"+n;return n}
+
+function vPedidos(){
+  if(!D.pedidos.length)return`<div class="card vazio">Nenhum pedido ainda. Eles chegam pelo formulário da landing e pela lista de espera do app.</div>`;
+  return`<div class="lista">${D.pedidos.map(p=>{const c=D.codigos.find(x=>x.id===p.codigo_id);const usado=c&&c.status==="usado";
+    const m=c?msgCodigo(p.nome,c.codigo):"";
+    return`<div class="item"><div class="l1"><span class="nm">${esc(p.nome)}</span><span><span class="tag t-${p.status}">${p.status==="novo"?"Novo":p.status==="aprovado"?(usado?"Cadastrado":"Aprovado"):"Recusado"}</span></span></div>
+    <div class="mut">${esc(p.email)}${p.whatsapp?" · "+esc(p.whatsapp):""}${p.idade?" · criança de "+p.idade+" anos":""} · ${p.origem==="landing"?"pela landing":"pelo app"} · ${dt(p.criado_em)}</div>
+    ${p.mensagem?`<div>${esc(p.mensagem)}</div>`:""}
+    ${p.status==="novo"?`<div class="acoes"><button class="btn sm lime" data-ap="${p.id}">Aprovar e gerar código</button><button class="btn sm no" data-rc="${p.id}">Recusar</button></div>`:""}
+    ${c?`<div class="acoes" style="align-items:center"><span class="cod">${esc(c.codigo)}</span>${usado?"":`
+      ${p.whatsapp?`<a class="btn sm lime" target="_blank" rel="noopener" href="https://wa.me/${zap(p.whatsapp)}?text=${encodeURIComponent(m)}">Enviar pelo WhatsApp</a>`:""}
+      <a class="btn sm w" href="mailto:${encodeURIComponent(p.email)}?subject=${encodeURIComponent("Seu código de beta tester do Iaih")}&body=${encodeURIComponent(m)}">Enviar por e-mail</a>
+      <button class="btn sm w" data-cp="${esc(m)}">Copiar mensagem</button>`}</div>`:""}
+    </div>`}).join("")}</div>`}
+
+function vCodigos(){
+  return`<div class="tw"><table><thead><tr><th>Código</th><th>Situação</th><th>Para quem</th><th>Quando</th></tr></thead><tbody>${D.codigos.map(c=>{
+    const p=D.pedidos.find(x=>x.id===c.pedido_id),f=D.perfis.find(x=>x.id===c.usado_por);
+    return`<tr><td><b>${esc(c.codigo)}</b></td><td><span class="tag t-${c.status}">${{livre:"Livre",reservado:"Enviado, aguardando cadastro",usado:"Em uso"}[c.status]}</span></td>
+    <td>${f?esc(f.nome||"")+"<br><span class=mut>"+esc(f.email)+"</span>":p?esc(p.nome)+"<br><span class=mut>"+esc(p.email)+"</span>":"<span class=mut>—</span>"}</td>
+    <td class="mut">${dt(c.usado_em||c.reservado_em)}</td></tr>`}).join("")}</tbody></table></div>`}
+
+function etapa(m){if(!m)return"Não começou";return["Abertura","Abertura","Conversa","Minijogo","Concluída"][Math.min(m.stage||0,4)]}
+function vFamilias(){
+  const fams=D.perfis.filter(p=>p.papel==="familia");
+  if(!fams.length)return`<div class="card vazio">Nenhuma família cadastrada ainda.</div>`;
+  return`<div class="lista">${fams.map(f=>{const e=D.estado.find(x=>x.user_id===f.id),d=e&&e.dados||{},kids=d.kids||[],c=D.codigos.find(x=>x.id===f.codigo_id);
+    return`<div class="item"><div class="l1"><span class="nm">${esc(f.nome||"(sem nome)")}</span><span class="mut">${c?esc(c.codigo)+" · ":""}cadastro ${dt(f.criado_em)}</span></div>
+    <div class="mut">${esc(f.email)}${e?" · último uso "+dt(e.atualizado_em):" · ainda não usou o app"}</div>
+    ${kids.length?`<div class="tw"><table><thead><tr><th>Criança</th><th>Ano</th><th>Missões concluídas</th><th>Missão 1</th></tr></thead><tbody>${kids.map(k=>`<tr><td><b>${esc(k.apelido)}</b></td><td>${esc(k.ano||"")}</td><td>${(k.done||[]).length}</td><td>${etapa(k.prog&&k.prog.m1)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="mut">Nenhuma criança cadastrada ainda.</div>`}
+    </div>`}).join("")}</div>`}
+
+function desenhar(){
+  const n=s=>D.codigos.filter(c=>c.status===s).length,novos=D.pedidos.filter(p=>p.status==="novo").length;
+  $("#app").innerHTML=`<div class="top"><h1>Painel do Iaih · Beta</h1><div class="acoes"><button class="btn sm w" id="atu">Atualizar</button><button class="btn sm w" id="sair">Sair</button></div></div>
+  <div class="kpis"><div class="kpi"><b>${n("livre")}</b><span>Vagas livres</span></div><div class="kpi"><b>${n("reservado")}</b><span>Códigos enviados</span></div><div class="kpi"><b>${n("usado")}</b><span>Famílias cadastradas</span></div><div class="kpi"><b>${novos}</b><span>Pedidos novos</span></div></div>
+  ${ultimo?`<div class="card" style="margin-bottom:14px;background:var(--lime)"><b>Código gerado para ${esc(ultimo.nome)}:</b> <span class="cod">${esc(ultimo.codigo)}</span> <span class="mut">Agora é só enviar pelo botão do pedido.</span></div>`:""}
+  <div class="tabs" role="tablist">${[["pedidos","Pedidos"],["familias","Famílias"],["codigos","Códigos"]].map(([k,t])=>`<button class="tab" role="tab" aria-selected="${aba===k}" data-aba="${k}">${t}</button>`).join("")}</div>
+  <div id="conteudo">${aba==="pedidos"?vPedidos():aba==="familias"?vFamilias():vCodigos()}</div>`;
+}
+
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.aba){aba=t.dataset.aba;ultimo=null;return desenhar()}
+  if(t.id==="atu"){await atualizar();return}
+  if(t.id==="sair"){await SB.auth.signOut();return telaLogin()}
+  if(t.dataset.ap){t.disabled=true;const p=D.pedidos.find(x=>x.id===t.dataset.ap);const r=await SB.rpc("aprovar_pedido",{p_pedido:t.dataset.ap});
+    if(r.error){alertar(/sem_vagas/.test(r.error.message)?"As 20 vagas acabaram.":r.error.message);t.disabled=false;return}
+    ultimo={nome:p.nome,codigo:r.data};await atualizar();return}
+  if(t.dataset.rc){if(t.dataset.ok!=="1"){t.dataset.ok="1";t.textContent="Toque de novo para recusar";return}
+    const r=await SB.from("pedidos").update({status:"recusado",atualizado_em:new Date().toISOString()}).eq("id",t.dataset.rc);if(r.error)return alertar(r.error.message);await atualizar();return}
+  if(t.dataset.cp){try{await navigator.clipboard.writeText(t.dataset.cp);t.textContent="Copiado"}catch(x){t.textContent="Não deu para copiar"}}
+});
+function alertar(m){const c=$("#conteudo");c&&c.insertAdjacentHTML("afterbegin",`<p class="err">${esc(m)}</p>`)}
+async function atualizar(){try{await carregar();desenhar()}catch(x){$("#app").innerHTML=`<div class="card"><p class="err">Não consegui carregar: ${esc(x.message)}</p><button class="btn sm" onclick="location.reload()">Tentar de novo</button></div>`}}
+async function iniciar(){
+  const {data:{session}}=await SB.auth.getSession();if(!session)return telaLogin();
+  const r=await SB.rpc("is_admin");if(r.error||!r.data){await SB.auth.signOut();return telaLogin("Este acesso não é de administrador.")}
+  await atualizar();
+}
+iniciar();
+</script>
+</body>
+</html>
