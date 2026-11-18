@@ -1,0 +1,21 @@
+name: teste-e2e
+on:
+  push:
+    branches: [teste-e2e]
+permissions:
+  contents: write
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 20}
+      - run: npm i playwright@1.47.2 && npx playwright install --with-deps chromium
+      - run: (python3 -m http.server 8080 >/dev/null 2>&1 &) && sleep 2 && COD=IAIH-Z5TBY node teste/e2e.js
+      - name: publicar resultado
+        if: always()
+        run: |
+          git config user.name e2e && git config user.email e2e@iaih.app
+          git checkout --orphan e2e-resultado && git rm -rf --cached . >/dev/null
+          git add -f out && git commit -m "resultado $GITHUB_RUN_ID" && git push -f origin e2e-resultado
