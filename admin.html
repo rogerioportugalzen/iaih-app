@@ -52,13 +52,23 @@ th{background:var(--ink);color:#fff;font-size:12px;text-transform:uppercase;lett
 <div class="in" id="app"><p class="vazio">Carregando…</p></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
-const SB=supabase.createClient("https://kkxcuynpfxextptvntvn.supabase.co","sb_publishable_Xy1bZLaYTpoBFDyet2LFWw_mt1Mf8rr");
+const REC=/type=recovery/.test(location.hash);const SB=supabase.createClient("https://kkxcuynpfxextptvntvn.supabase.co","sb_publishable_Xy1bZLaYTpoBFDyet2LFWw_mt1Mf8rr");
 const APP="https://app.iaih.app/";
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const dt=v=>v?new Date(v).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"";
 let D={pedidos:[],codigos:[],perfis:[],estado:[]},aba="pedidos",ultimo=null;
 
+function telaNova(){
+  $("#app").innerHTML=`<form id="login" class="card"><h1>Senha nova</h1>
+  <label>Senha nova<input id="n1" type="password" autocomplete="new-password"></label>
+  <label>Repita a senha<input id="n2" type="password" autocomplete="new-password"></label>
+  <p class="err" id="nerr" hidden></p><button class="btn" type="submit">Salvar e entrar</button></form>`;
+  $("#login").onsubmit=async e=>{e.preventDefault();const a=$("#n1").value,b=$("#n2").value,er=m=>{$("#nerr").textContent=m;$("#nerr").hidden=false};
+    if(a.length<8)return er("Use pelo menos 8 caracteres.");if(a!==b)return er("As duas senhas não estão iguais.");
+    const r=await SB.auth.updateUser({password:a});if(r.error)return er("O link expirou. Volte e toque em Esqueci a senha.");
+    history.replaceState(null,"",location.pathname);iniciar(true)};
+}
 function telaLogin(msg){
   $("#app").innerHTML=`<form id="login" class="card"><h1>Painel do Iaih</h1>
   <label>E-mail<input id="lem" type="email" autocomplete="email"></label>
@@ -66,7 +76,7 @@ function telaLogin(msg){
   <p class="err" id="lerr" ${msg?"":"hidden"}>${esc(msg||"")}</p>
   <button class="btn" type="submit">Entrar</button>
   <button class="btn w sm" type="button" id="lnovo">Primeiro acesso: criar minha senha</button>
-  <p class="mut">Só o e-mail do administrador entra aqui.</p></form>`;
+  <button class="btn w sm" type="button" id="lesq">Esqueci a senha</button><p class="mut">Só o e-mail do administrador entra aqui.</p></form>`;
   const err=m=>{$("#lerr").textContent=m;$("#lerr").hidden=false};
   $("#login").onsubmit=async e=>{e.preventDefault();const r=await SB.auth.signInWithPassword({email:$("#lem").value.trim(),password:$("#lpw").value});
     if(r.error)return err("E-mail ou senha não conferem.");iniciar()};
@@ -75,6 +85,8 @@ function telaLogin(msg){
     const r=await SB.auth.signUp({email:em,password:pw,options:{data:{nome:"Rogerio"}}});
     if(r.error)return err(/codigo|Database/i.test(r.error.message)?"Este e-mail não é de administrador.":r.error.message);
     if(!r.data.session)return err("Acesso criado. Confirme pelo link no seu e-mail e depois entre.");iniciar()};
+  $("#lesq").onclick=async()=>{const em=$("#lem").value.trim();if(!em)return err("Preencha o e-mail e toque de novo.");
+    await SB.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});err("Se for o e-mail do administrador, o link para criar uma senha nova chega em alguns minutos.")};
 }
 
 async function carregar(){
@@ -144,8 +156,9 @@ document.addEventListener("click",async e=>{
 });
 function alertar(m){const c=$("#conteudo");c&&c.insertAdjacentHTML("afterbegin",`<p class="err">${esc(m)}</p>`)}
 async function atualizar(){try{await carregar();desenhar()}catch(x){$("#app").innerHTML=`<div class="card"><p class="err">Não consegui carregar: ${esc(x.message)}</p><button class="btn sm" onclick="location.reload()">Tentar de novo</button></div>`}}
-async function iniciar(){
-  const {data:{session}}=await SB.auth.getSession();if(!session)return telaLogin();
+async function iniciar(feito){
+  const {data:{session}}=await SB.auth.getSession();if(!session)return telaLogin(/error_code=/.test(location.hash)?"Esse link expirou. Toque em Esqueci a senha para receber outro.":"");
+  if(REC&&!feito)return telaNova();
   const r=await SB.rpc("is_admin");if(r.error||!r.data){await SB.auth.signOut();return telaLogin("Este acesso não é de administrador.")}
   await atualizar();
 }
